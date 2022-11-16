@@ -312,12 +312,17 @@ void AuthenticatorImpl::doneWithStatus(const Status& status) {
   ENVOY_LOG(debug, "{}: JWT token verification completed with: {}", name(),
             ::google::jwt_verify::getStatusString(status));
 
-  if(Status::ok != status) {
+  if(Status::Ok != status) {
+    ENVOY_LOG(info, "!@!@ Inside AuthenticatorImpl::doneWithStatus -- in first status::ok");
     //Forward the failed status
     const auto &provider = jwks_data_->getJwtProvider();
     
     if (!provider.failed_status_in_metadata().empty()) {
-      set_extracted_jwt_data_cb_(provider.failed_status_in_metadata(), status);
+      Envoy::ProtobufWkt::Struct failed_status;
+      auto &failed_status_fields = *failed_status.mutable_fields();
+      failed_status_fields["status"].set_string_value(google::jwt_verify::getStatusString(status));
+      ENVOY_LOG(info, "!@!@ Inside AuthenticatorImpl::doneWithStatus -- inner if and status reason is: {}",google::jwt_verify::getStatusString(status));
+      set_extracted_jwt_data_cb_(provider.failed_status_in_metadata(), failed_status_fields);
     }
   }
   // If a request has multiple tokens, all of them must be valid. Otherwise it may have
