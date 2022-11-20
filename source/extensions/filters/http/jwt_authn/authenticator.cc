@@ -8,6 +8,7 @@
 #include "source/common/common/logger.h"
 #include "source/common/http/message_impl.h"
 #include "source/common/http/utility.h"
+#include "source/common/http/headers.h"
 #include "source/common/protobuf/protobuf.h"
 #include "source/common/tracing/http_tracer_impl.h"
 
