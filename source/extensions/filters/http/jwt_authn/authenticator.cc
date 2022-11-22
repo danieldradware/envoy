@@ -316,10 +316,7 @@ void AuthenticatorImpl::doneWithStatus(const Status& status) {
   if(Status::Ok != status) {
     ENVOY_LOG(info, "!@!@ Inside AuthenticatorImpl::doneWithStatus -- in first status::ok");
     //Forward the failed status
-    if(jwks_data_ != nullptr) {
-      ENVOY_LOG(info,"jwks_data_ is NULL");
-      return;  
-    }
+    
     if ((jwks_data_ != nullptr) && !jwks_data_->getJwtProvider().failed_status_in_metadata().empty()) {
       ::google::protobuf::Struct failed_status;
       auto &failed_status_fields = *failed_status.mutable_fields();
