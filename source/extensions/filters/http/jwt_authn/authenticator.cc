@@ -319,8 +319,9 @@ void AuthenticatorImpl::doneWithStatus(const Status& status) {
     
     if ((jwks_data_ != nullptr) && !jwks_data_->getJwtProvider().failed_status_in_metadata().empty()) {
       ::google::protobuf::Struct failed_status;
-      auto &failed_status_field = *failed_status.mutable_fields();
-      failed_status_field.insert({"status",std::to_string(enumToInt(status))});
+      ::google::protobuf::Value status_code;
+      status_code.set_string_value(std::to_string(enumToInt(status)));
+      (*failed_status.mutable_fields())["status"] = status_code;
       ENVOY_LOG(info, "!@!@ Inside AuthenticatorImpl::doneWithStatus -- inner if and status reason is: {}",google::jwt_verify::getStatusString(status));
       set_extracted_jwt_data_cb_(jwks_data_->getJwtProvider().failed_status_in_metadata(), failed_status);
     }
