@@ -319,7 +319,7 @@ void AuthenticatorImpl::doneWithStatus(const Status& status) {
     
     if ((jwks_data_ != nullptr) && !jwks_data_->getJwtProvider().failed_status_in_metadata().empty()) {
       ::google::protobuf::I32 failed_status;
-      failed_status = enumToInt(status);
+      failed_status.set_integer(enumToInt(status));
       ENVOY_LOG(info, "!@!@ Inside AuthenticatorImpl::doneWithStatus -- inner if and status reason is: {}",google::jwt_verify::getStatusString(status));
       set_extracted_jwt_data_cb_(jwks_data_->getJwtProvider().failed_status_in_metadata(), failed_status);
     }
