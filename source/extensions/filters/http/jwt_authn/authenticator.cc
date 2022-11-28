@@ -321,7 +321,7 @@ void AuthenticatorImpl::doneWithStatus(const Status& status) {
       ::google::protobuf::Struct failed_status;
       ::google::protobuf::Value status_code;
       auto failed_status_fields = *failed_status.mutable_fields();
-      ENVOY_LOG(info, "!@!@Provider name is: {}", provider_);
+      //ENVOY_LOG(info, "!@!@Provider name is: {}", provider_);
       //status_code.set_string_value(std::to_string(enumToInt(status)));
       failed_status_fields["status"].set_string_value(std::to_string(enumToInt(status)));
       ENVOY_LOG(info, "!@!@ Inside AuthenticatorImpl::doneWithStatus -- inner if and status reason is: {}",google::jwt_verify::getStatusString(status));
