@@ -321,7 +321,7 @@ void AuthenticatorImpl::doneWithStatus(const Status& status) {
       ::google::protobuf::Struct failed_status;
       ::google::protobuf::Value status_code;
       auto failed_status_fields = *failed_status.mutable_fields();
-      status_code.mutable_string_value(std::to_string(enumToInt(current_status))std::to_string(enumToInt(status)));
+      status_code.mutable_string_value(std::to_string(enumToInt(status)));
       //ENVOY_LOG(info, "!@!@Provider name is: {}", provider_);
       //status_code.set_string_value(std::to_string(enumToInt(status)));
       Status current_status = *status_code;
